@@ -40,8 +40,24 @@ def vk_stats(group_id):
 
     vk = vk_session.get_api()
 
-    stats = vk.stats.get(group_id=group_id, stats_groups='reach')
-    return render_template('stats.html', stats=stats)
+    my_stats = {
+        'ages': {
+            '12-18': 0,
+            '18-21': 0,
+            '21-24': 0,
+            '24-27': 0,
+            '27-30': 0,
+            '30-35': 0,
+            '35-45': 0,
+            '45-100': 0,
+        }
+    }
+
+    stats = vk.stats.get(group_id=group_id, stats_groups='reach', interval='week', intervals_count=1)
+    for elem in stats[0]['reach']['age']:
+        my_stats['ages'][elem['value']] = elem['count']
+    print(stats[0])
+    return render_template('stats.html', stats=stats[0], my_stats=my_stats)
 
 
 if __name__ == '__main__':

@@ -11,31 +11,50 @@
     <a class="navbar-brand" href="#"><h1>Vk.com Statistics</h1></a>
 </nav>
 <div align="center">
-    <h2 style="color: purple;">Activities</h2>
+    <h1>Group Statistics for the Week</h1>
+    <br>
+    <h2 style="color: blue;">Activities</h2>
     <table class="table table-bordered" style="width: 900px; margin: auto;">
-        <thead>
-        <tr class="table-active">
-            <th scope="col">Title of activity</th>
-            <th scope="col">Team leader</th>
-            <th scope="col">Duration</th>
-            <th scope="col">List of collaborators</th>
-            <th scope="col">Hazard category</th>
-            <th scope="col">Is finished</th>
-        </tr>
-        </thead>
         <tbody>
-        <tr>
-            <td class="table-primary">{{job.job}}</td>
-            <td class="table-primary">{{job.user.surname}} {{job.user.name}}</td>
-            <td class="table-primary">{{job.work_size}} hours</td>
-            <td class="table-primary" align="center">{{job.collaborators}}</td>
-            <td class="table-primary" align="center">{{job.categories|map(attribute="id")|join(', ')}}</td>
-            {% if job.is_finished == true %}
-            <td class="table-danger">Is finished</td>
-            {% else %}
-            <td class="table-danger">Is not finished</td>
-            {% endif %}
+        <tr class="table-primary">
+            <td>Subscribed</td>
+            <td>{{ stats['activity']['subscribed'] }}</td>
         </tr>
+        <tr class="table-primary">
+            <td>Unsubscribed</td>
+            <td>{{ stats['activity']['unsubscribed'] }}</td>
+        </tr>
+        <tr class="table-primary">
+            <td>Views</td>
+            <td>{{ stats['visitors']['views'] }}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<div align="center">
+    <h2 style="color: green;">Ages</h2>
+    <table class="table table-bordered" style="width: 900px; margin: auto;">
+        <tbody>
+        {% for elem in my_stats['ages'] %}
+        <tr class="table-success">
+            <td>{{ elem }}</td>
+            <td>{{ my_stats['ages'][elem] }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<br>
+<div align="center">
+    <h2 style="color: pink;">Cities</h2>
+    <table class="table table-bordered" style="width: 900px; margin: auto;">
+        <tbody>
+        {% for city in stats['reach']['cities'] %}
+        <tr class="table-danger">
+            <td>{{ elem['name'] }}</td>
+        </tr>
+        {% endfor %}
         </tbody>
     </table>
 </div>
